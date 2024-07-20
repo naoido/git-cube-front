@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { onMounted, ref } from "vue";
 
 const canvas = ref<HTMLCanvasElement | null>(null);
@@ -47,15 +48,27 @@ onMounted(() => {
   renderer.setPixelRatio(window.devicePixelRatio);
 
   // ボックスジオメトリー
-  const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-  const boxMaterial = new THREE.MeshStandardMaterial({
-    color: "#7e52cc"
+  // const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
+  // const boxMaterial = new THREE.MeshStandardMaterial({
+  //   color: "#7e52cc"
+  // });
+  // const box = new THREE.Mesh(boxGeometry, boxMaterial);
+  // scene.add(box);
+  const loader = new GLTFLoader();
+  let cube: THREE.Object3D<THREE.Object3DEventMap>;
+
+  loader.load('./src/models/cube.glb', function(gltf) {
+    cube = gltf.scene;
+    cube.scale.x = 0.5;
+    cube.scale.y = 0.5;
+    cube.scale.z = 0.5;
+	  scene.add(cube);
+  }, undefined, function (error) {
+    console.error(error);
   });
-  const box = new THREE.Mesh(boxGeometry, boxMaterial);
-  scene.add(box);
 
   //半径
-const r = 100;
+  const r = 100;
  
  //頂点数
  const starsNum = 300;
@@ -68,19 +81,19 @@ const r = 100;
   
  //球状に配置する頂点座標を設定
  for(let i = 0; i < starsNum; i++){
-     const theta = Math.PI * Math.random();
-     const phi = Math.PI * Math.random() * 2;
-  
-     positions[i * 3] = r * Math.sin(theta) * Math.cos(phi);
-     positions[i * 3 + 1] = r * Math.sin(theta) * Math.sin(phi);
-     positions[i * 3 + 2] = r * Math.cos(theta);
+    const theta = Math.PI * Math.random();
+    const phi = Math.PI * Math.random() * 2;
+
+    positions[i * 3] = r * Math.sin(theta) * Math.cos(phi);
+    positions[i * 3 + 1] = r * Math.sin(theta) * Math.sin(phi);
+    positions[i * 3 + 2] = r * Math.cos(theta);
  }
   
   //バッファーオブジェクトのattributeに頂点座標を設定
   geometry.setAttribute('position',new THREE.BufferAttribute(positions,3));
     
   const material = new THREE.PointsMaterial({
-      size:0.3
+    size:0.2
   });
     
   const points = new THREE.Points(geometry,material);
@@ -90,13 +103,18 @@ const r = 100;
   const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
   scene.add(ambientLight);
 
-  const pointLight = new THREE.PointLight("#ffffff", 1000);
-  pointLight.position.set(3, 13, 5);
+  const pointLight = new THREE.PointLight("#ffffff", 300);
+  pointLight.position.set(5, 5, 2);
 
-  scene.add(pointLight)
+  scene.add(pointLight);
+
+  const pointLight1 = new THREE.PointLight("#ffffff", 300);
+  pointLight1.position.set(-5, 5, 0);
+
+  scene.add(pointLight1)
 
   // アニメーション
-  const clock = new THREE.Clock();
+  // const clock = new THREE.Clock();
 
   let rot = 0;
   const tick = () => {
@@ -106,10 +124,6 @@ const r = 100;
     camera.position.x = 3 * Math.sin(radian);
     camera.position.z = 3 * Math.cos(radian);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
-
-    const elapsedTime = clock.getElapsedTime();
-    box.rotation.x = elapsedTime * 0.6;
-    box.rotation.y = elapsedTime * 0.8;
 
     renderer.render(scene, camera);
     window.requestAnimationFrame(tick);

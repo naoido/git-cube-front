@@ -1,7 +1,7 @@
 <template>
     <div id="menu">
         <ul>
-            <li v-for="(link, index) in links">
+            <li v-for="link in links">
                 <router-link
                     :to="link.path"
                     active-class="active"

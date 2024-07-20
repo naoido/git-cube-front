@@ -8,11 +8,9 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     Cube: typeof import('./src/components/Cube.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SideMenuBar: typeof import('./src/components/SideMenuBar.vue')['default']
     TopMenuBar: typeof import('./src/components/TopMenuBar.vue')['default']
-    TopMenuBAr: typeof import('./src/components/TopMenuBAr.vue')['default']
   }
 }
