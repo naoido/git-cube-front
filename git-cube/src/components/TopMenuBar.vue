@@ -6,7 +6,6 @@
             variant="outlined"
             rounded
             width="100px"
-            v-bind="props"
         >
             LOGIN
         </v-btn>
