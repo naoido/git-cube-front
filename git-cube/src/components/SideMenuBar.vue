@@ -54,7 +54,7 @@ const links = [
             width: 200px;
             a {
                 text-decoration: none;
-                color: #303030;
+                color: #e3e3e3;
                 transition: opacity 0.3s ease;
                 transition: width 0.3s ease;
                 opacity: 1;
@@ -68,19 +68,17 @@ const links = [
                     width: 20px;
                     clip-path: polygon(0 0, 100% 50%, 0 100%);
                     margin-right: 15px;
-                    background-color: #303030;
+                    background-color: #e3e3e3;
                     opacity: 0;
                     transition: all 0.3s ease;
                     transform: translateX(-10px);
                 }
                 &::after {
                     content: "";
-                    position: relative;
-                    top: -5px;
                     display: block;
                     height: 1px;
                     width: 0%;
-                    background-color: #303030;
+                    background-color: #e3e3e3;
                     transition: all 0.3s ease;
                 }
                 &:hover {
@@ -91,7 +89,7 @@ const links = [
                 }
             }
             .active {
-                color: #4e0909;
+                color: #82e276;
                 &::before {
                     opacity: 1;
                     transform: translateX(0);
