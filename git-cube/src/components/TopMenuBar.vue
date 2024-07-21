@@ -6,6 +6,7 @@
             variant="outlined"
             rounded
             width="100px"
+            href="/api/github-login"
         >
             LOGIN
         </v-btn>

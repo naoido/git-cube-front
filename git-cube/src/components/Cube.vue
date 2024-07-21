@@ -9,6 +9,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { onMounted, ref } from "vue";
 
+const cubeName = "cube025.glb";
 const canvas = ref<HTMLCanvasElement | null>(null);
 
 onMounted(() => {
@@ -57,7 +58,7 @@ onMounted(() => {
   const loader = new GLTFLoader();
   let cube: THREE.Object3D<THREE.Object3DEventMap>;
 
-  loader.load('./src/models/cube.glb', function(gltf) {
+  loader.load(`./src/models/${cubeName}`, function(gltf) {
     cube = gltf.scene;
     cube.scale.x = 0.5;
     cube.scale.y = 0.5;
